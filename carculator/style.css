@@ -15,8 +15,9 @@ body {
 
 .calculator-container {
   width: 100%;
-  padding: 2rem 4rem;
   margin: 4rem 8rem;
+  padding: 1rem;
+
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -51,19 +52,44 @@ body {
 }
 
 .display {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
   min-width: 24rem;
   min-height: 12rem;
 
   padding: 1rem;
   margin-bottom: 0.5rem;
   border: 1px solid red;
-  color: red;
 }
+
+.calc-content {
+  font-size: 4rem;
+}
+
 .buttons {
   min-width: 24rem;
-  min-height: 36rem;
 
-  padding: 1rem;
   border: 1px solid blue;
   color: blue;
+}
+
+.btn-container {
+  display: flex;
+  width: 100%;
+}
+
+.button {
+  font-size: 2rem;
+
+  flex: 1 25%;
+  padding: 2rem 1rem;
+  border: 0.1rem solid black;
+
+  cursor: pointer;
+}
+
+.zero {
+  flex: 2 50%;
 }
