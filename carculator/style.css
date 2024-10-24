@@ -8,5 +8,36 @@
 /* HTML과 Body의 기본 설정 */
 html,
 body {
-  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculator-container {
+  width: 100%;
+  padding: 4rem;
+  margin: 4rem 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  border: 0.1rem solid green;
+}
+
+.display {
+  min-width: 24rem;
+  min-height: 12rem;
+
+  padding: 1rem;
+  border: 1px solid red;
+  color: red;
+}
+.buttons {
+  min-width: 24rem;
+  min-height: 36rem;
+
+  padding: 1rem;
+  border: 1px solid blue;
+  color: blue;
 }
