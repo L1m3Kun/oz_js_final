@@ -10,6 +10,12 @@ const handleButtonClick = (event) => {
   if (Object.values(event.target.classList).includes("number")) {
     if (display.innerText === "0") display.innerText = "";
     display.innerText += event.target.innerText;
+  } else if (event.target.id === "dot") {
+    if (!display.innerText.includes(".")) {
+      display.innerText += event.target.innerText;
+    }
+  } else if (event.target.id === "reset") {
+    display.innerText = "0";
   }
 };
 
