@@ -11,10 +11,13 @@ const handleButtonClick = (event) => {
     if (display.innerText === "0") display.innerText = "";
     display.innerText += event.target.innerText;
   } else if (event.target.id === "dot") {
+    // id로 버튼이 .인지 확인
     if (!display.innerText.includes(".")) {
+      //.이 없을 때만 적용
       display.innerText += event.target.innerText;
     }
   } else if (event.target.id === "reset") {
+    // C 버튼을 id를 통해 판별
     display.innerText = "0";
   }
 };
