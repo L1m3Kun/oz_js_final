@@ -90,6 +90,14 @@ body {
   cursor: pointer;
 }
 
+.button:hover {
+  background-color: wheat;
+}
+
+.button:active {
+  background-color: #2e3134;
+  color: white;
+}
 .zero {
   flex: 2 50%;
 }
