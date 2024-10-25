@@ -23,17 +23,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const { firstOperand: first, secondOperand: second, operator } = state;
       switch (operator) {
         case "+":
-          return first + second;
+          setState("firstOperand", first + second);
+          return state.firstOperand;
         case "-":
-          return first - second;
+          setState("firstOperand", first - second);
+          return state.firstOperand;
         case "*":
-          return first * second;
+          setState("firstOperand", first * second);
+          return state.firstOperand;
         case "/":
           if (!second) return Number.MAX_SAFE_INTEGER;
-
-          return first / second;
+          setState("firstOperand", first / second);
+          return state.firstOperand;
         default:
-          return 0;
+          return state.firstOperand;
       }
     };
 
@@ -48,36 +51,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const [state, setState, calculate, reset] = useState();
 
-  // 버튼 클릭 이벤트 콜백 함수 선언
-  const handleButtonClick = (event) => {
-    // 내부에 'number'가 있다면 숫자를 display에 도시
-    if (Object.values(event.target.classList).includes("number")) {
+  const ClickHandler = {
+    number(displayNumber) {
       if (display.innerText === "0" || state.isNew) {
         display.innerText = "";
         setState("isNew", false);
       }
-      display.innerText += event.target.innerText;
-    } else if (Object.values(event.target.classList).includes("operator")) {
-      if (event.target.id === "calc") {
-        setState("secondOperand", Number(display.innerText));
+      if (display.innerText !== "0" && state.isNew) {
+        reset();
+      }
+
+      display.innerText += displayNumber;
+    },
+
+    operator(content) {
+      if (state.firstOperand === null) {
+        setState("firstOperand", parseFloat(display.innerText));
+      } else {
+        setState("secondOperand", parseFloat(display.innerText));
+      }
+      if (state.firstOperand && state.secondOperand) {
         display.innerText = calculate();
       }
-      if (state.firstOperand === null) {
-        setState("firstOperand", Number(display.innerText));
-      }
-      setState("operator", event.target.innerText);
+
+      setState("operator", content);
       setState("isNew", true);
       console.log(state);
-    } else if (event.target.id === "dot") {
-      // id로 버튼이 .인지 확인
+    },
+    dot(content) {
       if (!display.innerText.includes(".")) {
         //.이 없을 때만 적용
-        display.innerText += event.target.innerText;
+        display.innerText += content;
       }
-    } else if (event.target.id === "reset") {
+    },
+    reset() {
       // C 버튼을 id를 통해 판별
       reset();
       display.innerText = "0";
+    },
+  };
+  // 버튼 클릭 이벤트 콜백 함수 선언
+  const handleButtonClick = (event) => {
+    // 내부에 'number'가 있다면 숫자를 display에 도시
+    if (Object.values(event.target.classList).includes("number")) {
+      ClickHandler.number(event.target.innerText);
+    } else if (event.target.id === "calc") {
+      setState("secondOperand", parseFloat(display.innerText));
+      display.innerText = calculate();
+      console.log(state);
+      reset();
+      setState("isNew", true);
+    } else if (event.target.id === "dot") {
+      ClickHandler.dot(event.target.innerText);
+    } else if (Object.values(event.target.classList).includes("operator")) {
+      ClickHandler.operator(event.target.innerText);
+    } else if (event.target.id === "reset") {
+      ClickHandler.reset();
     }
   };
 
