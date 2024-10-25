@@ -23,8 +23,8 @@ body {
   align-items: start;
   justify-content: center;
   gap: 0.5rem;
-
   border: 0.1rem solid green;
+  border-radius: 1rem;
 }
 
 .controller-container {
