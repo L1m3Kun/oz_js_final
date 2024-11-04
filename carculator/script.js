@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 버튼 요소 배열 생성
   const buttons = document.querySelectorAll(".button");
   // display 내부 요소 변수에 저장 및 내부 초기화
-  const display = document.querySelector(".calc-content");
-  display.innerText = "0";
+  const displayContent = document.querySelector(".calc-content");
+  displayContent.innerText = "0";
 
   const useState = () => {
     const state = {
@@ -53,25 +53,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const ClickHandler = {
     number(displayNumber) {
-      if (display.innerText === "0" || state.isNew) {
-        display.innerText = "";
+      if (displayContent.innerText === "0" || state.isNew) {
+        displayContent.innerText = "";
         setState("isNew", false);
       }
-      if (display.innerText !== "0" && state.isNew) {
+      if (displayContent.innerText !== "0" && state.isNew) {
         reset();
       }
 
-      display.innerText += displayNumber;
+      displayContent.innerText += displayNumber;
     },
 
     operator(content) {
       if (state.firstOperand === null) {
-        setState("firstOperand", parseFloat(display.innerText));
+        setState("firstOperand", parseFloat(displayContent.innerText));
       } else {
-        setState("secondOperand", parseFloat(display.innerText));
+        setState("secondOperand", parseFloat(displayContent.innerText));
       }
       if (state.firstOperand && state.secondOperand) {
-        display.innerText = calculate();
+        displayContent.innerText = calculate();
       }
 
       setState("operator", content);
@@ -79,15 +79,15 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(state);
     },
     dot(content) {
-      if (!display.innerText.includes(".")) {
+      if (!displayContent.innerText.includes(".")) {
         //.이 없을 때만 적용
-        display.innerText += content;
+        displayContent.innerText += content;
       }
     },
     reset() {
       // C 버튼을 id를 통해 판별
       reset();
-      display.innerText = "0";
+      displayContent.innerText = "0";
     },
   };
   // 버튼 클릭 이벤트 콜백 함수 선언
@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Object.values(event.target.classList).includes("number")) {
       ClickHandler.number(event.target.innerText);
     } else if (event.target.id === "calc") {
-      setState("secondOperand", parseFloat(display.innerText));
-      display.innerText = calculate();
+      setState("secondOperand", parseFloat(displayContent.innerText));
+      displayContent.innerText = calculate();
       console.log(state);
       reset();
       setState("isNew", true);
